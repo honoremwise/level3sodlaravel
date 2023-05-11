@@ -8,30 +8,53 @@ use App\Models\Product;
 class ProductController extends Controller
 {
     //
+
     public function store(Request $request)
     {
-
-        // this for checking what we are getting the user dd($request->all());
-        //save a new product from product model
+        // dd($request->all());
         $product = new Product();
         $product->name=$request->name;
         $product->qty=$request->quantity;
-        $product->description=$request->desc;
+        $product->desc=$request->desc;
         $product->price=$request->price;
         $product->save();
-        // return view('product');
-        // redirect to report end point or routes to view all inputted data
-        return redirect ('/report');
-        // return back();
+
+        return redirect('/report');
 
     }
-    //retrieve data through Product Model
     public function retrieve()
     {
-        //getting all products
-        $product = Product::all();
-        //pass product object to the report view
-        return view("report",['product'=>$product]);
+        $product=Product::all();
+
+        return view('report',['product'=>$product]);
+        // dd($product);
     }
-    
+    public function show($id)
+    {
+        $product=Product::find($id);
+        // dd($product);
+        return view('show',['product'=>$product]);
+    }
+    public function update(Request $request,$id)
+    {
+//   dd($id);  
+        $product=Product::find($id);
+        if(!$product)
+        {
+            return ('product not found');
+        }
+        $product->name=$request->name;
+        $product->price=$request->price;
+        $product->desc=$request->desc;
+        $product->qty=$request->quantity;
+        $product->save();
+        return redirect('/report');
+        
+
+
+
+
+
+        
+    }
 }

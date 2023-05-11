@@ -24,3 +24,13 @@ class, 'store'])->name('save');
 Route::get('/report', 
 [App\Http\Controllers\ProductController::
 class, 'retrieve'])->name('report');
+Route::get('/show/{id}', 
+[App\Http\Controllers\ProductController::
+class, 'show'])->name('show');
+
+Route::post('/update/{id}', 
+[App\Http\Controllers\ProductController::
+class, 'update'])->name('update');
+
+
+
